@@ -1,0 +1,19 @@
+- hosts: all
+  remote_user: ec2-user
+  become: yes
+  tasks:
+    - name: Add several package
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+         - mysql
+         - php
+         - unzip
+         - httpd
+
+    - name: service start
+      service:
+         name: httpd
+         state: started
+
